@@ -6,11 +6,31 @@ provider:
   runtime: python3.9
   profile: default
   stackName: wanjun-pyhttpapi
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 's3:ListBucket'
+          Resource: '*'
+        - Effect: Allow
+          Action:
+            - 's3:GetObject'
+
+            
+          Resource:
+            - 'arn:aws:s3:::somecuteanimals1/*'
+
 
 functions:
-  hello:
-    handler: handler.hello
+#   hello:
+#     handler: handler.hello
+#     events:
+#       - httpApi:
+#           path: /
+#           method: get
+  picture:
+    handler: random_picture.picture
     events:
       - httpApi:
-          path: /
+          path: / 
           method: get
